@@ -1,0 +1,80 @@
+@font-face {
+	font-family: SourceRegular;
+	src: url('fonts/SourceSansPro/SourceSansPro-Regular.otf') format("opentype");
+	font-weight: 400;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	color: #333;
+	font-family: SourceRegular;
+}
+
+#app {
+	margin: 100px;
+	border: 3px solid black;
+	padding: 20px;
+	font-size: 26px;
+}
+
+.text {
+	margin: 50px;
+	font-size: 24px;
+	padding: 10px;
+	border: 1px solid red;
+}
+
+.under {
+	position: relative;
+	border-bottom: 1px dashed #333;
+	cursor: help;
+}
+
+.under:hover {
+	border-bottom-style: solid;
+}
+
+.under::after {
+	content: "Далеко-далеко за словесными горами в стране, гласных и согласных живут.";
+	position: absolute;
+	width: 300px;
+	text-align: center;
+	font-size: 24px;
+	display: none;
+	background-color: rgba(200, 200, 200, .8);
+	border-radius: 5px;
+	padding: 5px;
+	top: 0;
+	left: 0;
+	/*border: 1px solid black;*/
+	cursor: default;
+}
+
+
+
+/*.under:hover::before{
+	content: "это то, как делается лучший сок в мире";
+	position: absolute;
+	z-index: 1;
+	opacity: 1;
+	background-color: #ccc;
+	width: 100%;
+	top: -100px;
+	left: 50%;
+	border: 1px solid black;
+}*/
+
+/*.underlineText {
+	display: inline-block;
+	line-height: .9rem;
+	border-bottom: 2px dashed red;
+	cursor: help;
+}*/
+
+p {
+
+}
