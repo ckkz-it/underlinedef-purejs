@@ -39,7 +39,7 @@ You just define two arrays in your `main.js` and then call the plugin to the sel
   ...
 </body>
 ````
-Choose one or multiple selectors. It could be, for example, `<p>` paragraphs, `<div>` wrappers or just `<body>` tag. Or some of them listed one after another. I recommend use any classes, id's, tags but `<body>` or whole page wrappers, because it would slow down page render.
+Choose one or multiple selectors. It could be, for example, `<p>` paragraphs, `<div>` wrappers or just `<body>` tag. Or some of them listed one after another. I recommend use any classes, id's, tags but `<body>` and whole page wrappers, because it may slow down page render.
 
 ````javascript
 underlineDef(".wrapper", {
