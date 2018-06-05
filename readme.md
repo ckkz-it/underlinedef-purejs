@@ -44,7 +44,7 @@ Choose one or multiple selectors. It could be, for example, `<p>` paragraphs, `<
 ````javascript
 underlineDef(".wrapper", {
   words: wordsArray,                       // Your words array you want to describe.
-  definitions: definitionsArray            // Your definitions array for chosen words. Remember, they have to match each other.
+  definitions: definitionsArray,            // Your definitions array for chosen words. Remember, they have to match each other.
 
   // These are two required options, other are optional
 
