@@ -1,3 +1,5 @@
+"use strict";
+
 function underlineDef(element, options) {
 
 	NodeList.prototype.forEach = Array.prototype.forEach;
@@ -7,15 +9,16 @@ function underlineDef(element, options) {
 		options = {};
 	}
 
-	let el = document.querySelectorAll(element),
-			cl = options.underlineClass || 'underline-definitions',
-			tag = options.tagName || 'span',
-			attr = options.attr || 'title',
-			words = options.words || '.*',
+	let el             = document.querySelectorAll(element),
+			words          = options.words || '.*',
 			//Check if "words" are defined
-			definitions = (options.definitions && words !== '.*') ?
-										options.definitions : "Define Words Array",
-			search = options.search || false;
+			definitions    = (options.definitions && words !== '.*') ?
+												options.definitions : "Define Words Array",
+			cl             = options.underlineClass || 'underline-definitions',
+			tag            = options.tagName || 'span',
+			attr           = options.attr || 'title',
+			search         = options.search || false,
+			preventDefault = options.preventDefault || true;
 
 
 	return el.forEach(function(item) {
@@ -55,38 +58,48 @@ function underlineDef(element, options) {
 				for (let j = 0; j < words.length; j++) {
 					//Check if "words" are defined AND definitions aren't
 					if (typeof definitions != 'string') {
-						if (_compareStrings(words[j], elTextArr[i])) {
-							// elTextArr[i] = '<'+ tag +' class="'+ cl +'" ' +
-							// 								'title="'+ definitions[j] +'">' +
-							// 								elTextArr[i] + '</'+ tag +'>';
-							//Wrap "words" in "tagName" with "attr"
+						//Check if the "word" contain [?!,.] (===2, look _compareStrings)
+						if (_compareStrings(words[j], elTextArr[i]) === 2) {
 							elTextArr[i] = `<${tag} class="${cl}" ${attr}="`+
 														`${definitions[j]}">${elTextArr[i]}</${tag}>`;
-
 							continue;
-						}
+						} else if (_compareStrings(words[j], elTextArr[i]) === 1) {
+											elTextArr[i] = `<${tag} class="${cl}" ${attr}="`+
+														`${definitions[j]}">${elTextArr[i].replace(/[!?.,<>]/g, '')}</${tag}>`+
+														`${elTextArr[i].replace(/\w/g, '')}`;
+											continue;
+										}
 
 					} else {
 
 						definitions = "Define Definitions Array";
-						if (_compareStrings(words[j], elTextArr[i])) {
+						if (_compareStrings(words[j], elTextArr[i]) === 2) {
 							elTextArr[i] = `<${tag} class="${cl}" ${attr}="`+
 														`${definitions}">${elTextArr[i]}</${tag}>`;
 							continue;
-						}
+						} else if (_compareStrings(words[j], elTextArr[i]) === 1) {
+											elTextArr[i] = `<${tag} class="${cl}" ${attr}="`+
+														`${definitions}">${elTextArr[i].replace(/[!?.,<>]*/g, '')}</${tag}>`+
+														`${elTextArr[i].replace(/\w/g, '')}`;
+											continue;
+										}
 
-					}
+								}
 
 				}//For j end;
 
 			} else {
 				//Case for only one word and one definition
-				if (_compareStrings(words, elTextArr[i])) {
+				if (_compareStrings(words, elTextArr[i]) === 2) {
 					elTextArr[i] = `<${tag} class="${cl}" ${attr}="`+
 												`${definitions}">${elTextArr[i]}</${tag}>`;
-				}
+				} else if (_compareStrings(words, elTextArr[i]) === 1) {
+											elTextArr[i] = `<${tag} class="${cl}" ${attr}="`+
+														`${definitions}">${elTextArr[i].replace(/[!?.,<>]*/g, '')}</${tag}>`+
+														`${elTextArr[i].replace(/\w/g, '')}`;
+										}
 
-			}
+				}
 
 		}//For i end;
 
@@ -97,7 +110,7 @@ function underlineDef(element, options) {
 		// Attach onclick search event if defined
 		if (search) {
 
-			elementsJoined = document.querySelectorAll('.'+cl);
+			let elementsJoined = document.querySelectorAll('.'+cl);
 			for (let i = 0; i < elementsJoined.length; i++) {
 				elementsJoined[i].addEventListener('click', _search);
 			}
@@ -108,13 +121,18 @@ function underlineDef(element, options) {
 		Private functions
 		------------------*/
 		function _compareStrings(string1, string2) {
-			let expr = new RegExp('^>*'+string1+'[!?.,<(\'s)]*$', 'i');
-			return expr.test(string2);
+
+			let a = new RegExp('^>*'+string1+'[!?.,<(\'s)s]*$', 'i'),
+					b = string1===string2;
+
+			a = a.test(string2);
+			return a+b;
+
 		}
 
 		function _search(e) {
 
-			e.preventDefault();
+			if (preventDefault) e.preventDefault();
 			//Search clicked word w/o symbols (e.g. !?.,<>)
 			let queryText = this.innerText.replace(/[!?.,<>]*/g, '').toLowerCase(),
 					href;
