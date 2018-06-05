@@ -1,6 +1,6 @@
 @font-face {
 	font-family: SourceRegular;
-	src: url('fonts/SourceSansPro-Regular.otf') format("opentype");
+	src: url('../fonts/SourceSansPro-Regular.otf') format("opentype");
 	font-weight: 400;
 }
 
@@ -16,6 +16,13 @@ strong {
 body {
 	color: #333;
 	font-family: SourceRegular;
+}
+
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100vh;
 }
 
 .header {
@@ -35,18 +42,11 @@ body {
 	border-bottom: 1px solid #333
 }
 
-.wrapper {
+.text {
 	margin: 0 auto;
 	text-align: center;
 	padding: 20px 50px;
 	font-size: 26px;
-}
-
-.wrapper::after {
-	content: "";
-	background-color: #333;
-	height: 3px;
-	width: 80px;
 }
 
 p {
@@ -72,7 +72,6 @@ footer {
 	text-align: center;
 	background-color: #cfaa04;
 	line-height: 100px;
-	margin-top: 50px;
 }
 
 .customUnderline {
