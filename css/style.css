@@ -1,0 +1,80 @@
+@font-face {
+	font-family: SourceRegular;
+	src: url('../fonts/SourceSansPro-Regular.otf') format("opentype");
+	font-weight: 400;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+strong {
+	font-weight: bold;
+}
+
+body {
+	color: #333;
+	font-family: SourceRegular;
+}
+
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100vh;
+}
+
+.header {
+	height: 100px;
+	white-space: nowrap;
+	line-height: 100px;
+	font-size: 3em;
+	text-align: center;
+	background-color: #049ccf;
+}
+
+.header span {
+	border-bottom: 1px dashed #333
+}
+
+.header span:hover {
+	border-bottom: 1px solid #333
+}
+
+.text {
+	margin: 0 auto;
+	text-align: center;
+	padding: 20px 50px;
+	font-size: 26px;
+}
+
+p {
+	margin: 20px;
+}
+
+.images {
+	text-align: center;
+}
+
+.images img {
+	width: 300px;
+	height: 300px;
+	margin-right: 30px;
+	border-radius: 50%;
+}
+
+footer {
+	width: 100%;
+	background-color: #ccc;
+	height: 100px;
+	font-size: 3em;
+	text-align: center;
+	background-color: #cfaa04;
+	line-height: 100px;
+}
+
+.customUnderline {
+	border-bottom: 1px dashed #333;
+	cursor: help;
+}
