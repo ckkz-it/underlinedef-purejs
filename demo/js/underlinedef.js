@@ -1,29 +1,35 @@
 "use strict";
 
-function underlineDef(element, options) {
+function underlineDef(element, options = {}) {
 
 	NodeList.prototype.forEach = Array.prototype.forEach;
 
-	if (!options) {
-		console.log("Define Words and Definitions Arrays!");
-		options = {};
-	}
+	if (!options.words && !options.definitions) console.log("Define Words and Definitions Arrays!");
 
-	let el             = document.querySelectorAll(element),
-			words          = options.words || '.*',
-			//Check if "words" are defined
-			definitions    = (options.definitions && words !== '.*') ?
-												options.definitions : "Define Words Array",
-			cl             = options.underlineClass || 'underline-definitions',
-			tag            = options.tagName || 'span',
-			attr           = options.attr || 'title',
-			search         = options.search || false,
-			preventDefault = options.preventDefault || true;
+	let el = document.querySelectorAll(element);
+
+	let settings = Object.assign({
+					underlineClass: 'underline-definitions',
+					tagName: 'span',
+					attr: 'title',
+					words: '.*',
+					definitions: "Words Array Isn't Defined",
+					search: false,
+					preventDefault: true
+				}, options);
 
 
 	return el.forEach(function(item) {
 
-		let elHTML = item.innerHTML;
+		let words          = settings.words,
+				//Check if "words" are defined
+				definitions    = (settings.definitions && words !== '.*') ? settings.definitions : "Define Words Array",
+				cl             = settings.underlineClass,
+				tag            = settings.tagName,
+				attr           = settings.attr,
+				search         = settings.search,
+				preventDefault = settings.preventDefault,
+				elHTML         = item.innerHTML;
 
 		// Define style if underlineClass ins't set
 		if (cl === 'underline-definitions') {
@@ -65,7 +71,7 @@ function underlineDef(element, options) {
 							continue;
 						} else if (_compareStrings(words[j], elTextArr[i]) === 1) {
 											elTextArr[i] = `<${tag} class="${cl}" ${attr}="`+
-														`${definitions[j]}">${elTextArr[i].replace(/[!?.,<>]/g, '')}</${tag}>`+
+														`${definitions[j]}">${elTextArr[i].replace(/[!?\.,<>\(\)]/g, '')}</${tag}>`+
 														`${elTextArr[i].replace(/\w/g, '')}`;
 											continue;
 										}
@@ -79,7 +85,7 @@ function underlineDef(element, options) {
 							continue;
 						} else if (_compareStrings(words[j], elTextArr[i]) === 1) {
 											elTextArr[i] = `<${tag} class="${cl}" ${attr}="`+
-														`${definitions}">${elTextArr[i].replace(/[!?.,<>]*/g, '')}</${tag}>`+
+														`${definitions}">${elTextArr[i].replace(/[!?\.,<>\(\)]/g, '')}</${tag}>`+
 														`${elTextArr[i].replace(/\w/g, '')}`;
 											continue;
 										}
@@ -95,7 +101,7 @@ function underlineDef(element, options) {
 												`${definitions}">${elTextArr[i]}</${tag}>`;
 				} else if (_compareStrings(words, elTextArr[i]) === 1) {
 											elTextArr[i] = `<${tag} class="${cl}" ${attr}="`+
-														`${definitions}">${elTextArr[i].replace(/[!?.,<>]*/g, '')}</${tag}>`+
+														`${definitions}">${elTextArr[i].replace(/[!?\.,<>\(\)]/g, '')}</${tag}>`+
 														`${elTextArr[i].replace(/\w/g, '')}`;
 										}
 
@@ -122,7 +128,7 @@ function underlineDef(element, options) {
 		------------------*/
 		function _compareStrings(string1, string2) {
 
-			let a = new RegExp('^>*'+string1+'[!?.,<(\'s)s]*$', 'i'),
+			let a = new RegExp('^>*'+string1+'[!?\.,<\(\)(\'s)s\n]*$', 'i'),
 					b = string1===string2;
 
 			a = a.test(string2);
@@ -133,8 +139,8 @@ function underlineDef(element, options) {
 		function _search(e) {
 
 			if (preventDefault) e.preventDefault();
-			//Search clicked word w/o symbols (e.g. !?.,<>)
-			let queryText = this.innerText.replace(/[!?.,<>]*/g, '').toLowerCase(),
+			//Search clicked word w/o symbols (e.g. !?.,<>())
+			let queryText = this.innerText.replace(/[!?\.,<>\(\)]*/, '').toLowerCase(),
 					href;
 			//Add here your search engines
 			switch (search) {
