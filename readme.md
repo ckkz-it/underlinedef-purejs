@@ -14,7 +14,9 @@ Recommended: Babel (or you can just use minimized version, which is already opti
 [View demo](https://ckkz-it.github.io/underlinedef-purejs/)
 
 ## Compatibility
-Modern Chrome, Opera, Safari and IE9+ (use minimized version or babel)
+Modern Chrome, Firefox, Opera, Safari
+IE is not supported due to Object.assign
+For IE9+ compatibility use jQuery version
 
 ## Usage
 Underlined Definitions let you describe choosed words all over your site just by setting two arrays, Words and Definitions, which matches each other
