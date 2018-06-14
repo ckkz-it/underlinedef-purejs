@@ -1,4 +1,4 @@
-# Underlined Definitions PureJS version 1.0.0 by Andrey Laguta
+# Underlined Definitions PureJS version 1.0.1 by Andrey Laguta
 
 Create underlined definitions for your choosed words and definitions.
 
@@ -14,7 +14,7 @@ Recommended: Babel (or you can just use minimized version, which is already opti
 [View demo](https://ckkz-it.github.io/underlinedef-purejs/)
 
 ## Compatibility
-Modern Chrome, Opera, Safari and IE8+ (use minimized version or babel)
+Modern Chrome, Opera, Safari and IE9+ (use minimized version or babel)
 
 ## Usage
 Underlined Definitions let you describe choosed words all over your site just by setting two arrays, Words and Definitions, which matches each other
